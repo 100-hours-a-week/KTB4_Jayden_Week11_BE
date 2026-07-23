@@ -1,5 +1,6 @@
 package com.example.spring_rest_api.common.exception;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -12,6 +13,16 @@ import java.util.Optional;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    private final String maxFileSize;
+    private final String maxRequestSize;
+
+    public GlobalExceptionHandler(
+            @Value("${spring.servlet.multipart.max-file-size}") String maxFileSize,
+            @Value("${spring.servlet.multipart.max-request-size}") String maxRequestSize
+    ) {
+        this.maxFileSize = maxFileSize;
+        this.maxRequestSize = maxRequestSize;
+    }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponseDto> handleBusiness(BusinessException exception) {
@@ -40,7 +51,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponseDto> handleMaxUploadSize(MaxUploadSizeExceededException exception) {
-            return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
-                    .body(ErrorResponseDto.of(exception.getMessage()));
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
+                .body(ErrorResponseDto.of(
+                        "파일 하나당 최대 " + maxFileSize + ", " + maxRequestSize + "까지 업로드할 수 있습니다."
+                ));
     }
 }
