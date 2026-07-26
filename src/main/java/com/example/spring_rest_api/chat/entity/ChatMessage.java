@@ -18,7 +18,7 @@ public class ChatMessage {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long chatMessageId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
@@ -34,4 +34,16 @@ public class ChatMessage {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
+
+    public static ChatMessage createTextMessage(ChatRoom chatRoom, User sender, String content) {
+        ChatMessage message = new ChatMessage();
+        message.chatRoom = chatRoom;
+        message.sender = sender;
+        message.content = content;
+        message.chatType = ChatType.TEXT;
+        message.createdAt = LocalDateTime.now();
+        message.updatedAt = null;
+        message.deletedAt = null;
+        return message;
+    }
 }

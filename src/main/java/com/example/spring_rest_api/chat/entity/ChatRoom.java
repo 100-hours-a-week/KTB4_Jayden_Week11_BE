@@ -17,7 +17,10 @@ public class ChatRoom {
     private Long chatRoomId;
     private LocalDateTime createdAt;
 
-    public ChatRoom create() {
+    @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private ChatRoomMember chatRoomMember;
+
+    public static ChatRoom create() {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.createdAt = LocalDateTime.now();
         return chatRoom;

@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ChatRoomMember {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long chatRoomMemberId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
@@ -23,4 +27,16 @@ public class ChatRoomMember {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "last_read_message_id", referencedColumnName = "chat_message_id")
     private ChatMessage lastReadMessage;
+
+    public static ChatRoomMember addMember(ChatRoom chatRoom, User user) {
+        ChatRoomMember member = new ChatRoomMember();
+        member.chatRoom =  chatRoom;
+        member.user = user;
+        return member;
+    }
+
+    public ChatRoomMember updateLastReadMessage(ChatMessage lastReadMessage) {
+        this.lastReadMessage = lastReadMessage;
+        return this;
+    }
 }
