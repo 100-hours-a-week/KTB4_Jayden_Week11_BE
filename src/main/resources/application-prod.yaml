@@ -1,0 +1,55 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import: optional:file:.env[.properties]
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX_SIZE}
+      minimum-idle: ${DB_POOL_MIN_IDLE}
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    open-in-view: false
+
+    hibernate:
+      ddl-auto: validate
+
+    properties:
+      hibernate:
+        format_sql: false
+
+server:
+  port: ${SERVER_PORT}
+  address: ${SERVER_ADDRESS}
+  forward-headers-strategy: framework
+
+app:
+  upload:
+    root: ${user.dir}/uploads
+
+  cors:
+    allowed_origins: ${CORS_ALLOWED_ORIGINS}
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-exp-seconds: ${JWT_ACCESS_TOKEN_EXPIRATION}
+  refresh-token-exp-seconds: ${JWT_REFRESH_TOKEN_EXPIRATION}
+
+logging:
+  level:
+    root: INFO
+    com.example.spring_rest_api: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: WARN
+    org.hibernate.orm.jdbc.bind: WARN
+
+
+

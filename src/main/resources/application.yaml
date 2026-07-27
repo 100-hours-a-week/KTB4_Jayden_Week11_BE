@@ -1,53 +1,14 @@
 spring:
   application:
-    name: spring-rest-api
+    name: hobbyloop
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  profiles:
+    default: local
 
   servlet:
     multipart:
-      enabled: true
       max-file-size: 10MB
       max-request-size: 100MB
 
-  config:
-    import: optional:file:.env[.properties]
-
-  profiles:
-    active: development
-
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
-      use-new-id-generator-mappings: false
-    show-sql: false
-    defer-datasource-initialization: false
-
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password:
-
-logging.level:
-  org.hibernate.SQL: info
-
-decorator:
-  datasource:
-    p6spy:
-      enable-logging: true
-      logging: slf4j
-      multiline: true
-
-jwt:
-  secret: ${JWT_SECRET}
-  access-token-exp-seconds: 180
-  refresh-token-exp-seconds: 12096000
-
-app:
-  upload:
-    root: ${user.dir}/uploads
+server:
+  shutdown: graceful

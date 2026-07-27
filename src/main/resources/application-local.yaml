@@ -1,12 +1,12 @@
 spring:
   config:
     activate:
-      on-profile: test
+      on-profile: local
     import: optional:file:.env[.properties]
 
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
 
@@ -14,10 +14,6 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
-  sql:
-    init:
-      mode: always
 
   jpa:
     hibernate:
@@ -33,9 +29,16 @@ logging:
     com.example.spring_rest_api: DEBUG
     org.hibernate.SQL: DEBUG
 
+server:
+  port: 8080
+
 app:
   upload:
     root: ${user.dir}/uploads
+
+  cors:
+    allowed_origins:
+      - http://localhost:5173
 
 decorator:
   datasource:
@@ -45,6 +48,9 @@ decorator:
       multiline: true
 
 jwt:
-  secret: dummy-secret-a9d8fasf8oscjv8p-asf89asdixcuDOSISDiojdsio9afo
+  secret: ${JWT_SECRET}
   access-token-exp-seconds: 180
   refresh-token-exp-seconds: 12096000
+
+
+
