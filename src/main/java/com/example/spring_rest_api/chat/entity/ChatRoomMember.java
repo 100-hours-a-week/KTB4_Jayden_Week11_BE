@@ -25,7 +25,7 @@ public class ChatRoomMember {
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "last_read_message_id", referencedColumnName = "chat_message_id")
+    @JoinColumn(name = "last_read_message_id")
     private ChatMessage lastReadMessage;
 
     public static ChatRoomMember addMember(ChatRoom chatRoom, User user) {

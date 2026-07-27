@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "chat_rooms")
@@ -18,7 +19,7 @@ public class ChatRoom {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "chatRoom", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private ChatRoomMember chatRoomMember;
+    private List<ChatRoomMember> chatRoomMember;
 
     public static ChatRoom create() {
         ChatRoom chatRoom = new ChatRoom();

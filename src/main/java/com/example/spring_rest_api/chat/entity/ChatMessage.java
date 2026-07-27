@@ -23,7 +23,7 @@ public class ChatMessage {
     private ChatRoom chatRoom;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "sender_id")
     private User sender;
 
     private String content;
