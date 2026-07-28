@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,intellij,visualstudiocode,java,groovy
 
 .env
+.env.production
+
 uploads/
 
 ### Groovy ###
