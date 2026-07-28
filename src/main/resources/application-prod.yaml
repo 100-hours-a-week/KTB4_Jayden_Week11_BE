@@ -33,7 +33,7 @@ server:
 
 app:
   upload:
-    root: ${user.dir}/uploads
+    root: ${UPLOAD_PATH}
 
   cors:
     allowed_origins: ${CORS_ALLOWED_ORIGINS}
